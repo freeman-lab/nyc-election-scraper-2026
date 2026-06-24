@@ -1,118 +1,93 @@
-# NYC BOE election-night scraper
+# NYC BOE election-night scraper + slate rollup
 
-Pulls ED-level results from the NYC Board of Elections live results site
-(**https://enr.boenyc.gov**) and emits a tidy CSV:
+One script — **`election_slate.py`** — that reads live results from the NYC Board of Elections
+ENR site (**https://enr.boenyc.gov**) and produces a per-candidate breakdown for our slate,
+ready to render on a simple results site. It also doubles as an ED-level scraper for separate
+demographic analysis.
+
+## Two paths, one script
+| | **Slate** (the site / Windmill) | **Analysis** (`live_analysis.py`, separate project) |
+|---|---|---|
+| BOE page | contest **summary** (`CDxxxxx0.html`) | **ED-level** (`CDxxxxxAD<county>.html`) |
+| parser | `parse_contest_summary` | `parse_tables` |
+| produces | slate JSON (`main()` / `--json`) | tidy `ADED,candidate,votes` CSV (`--scrape`) |
+
+The slate path needs no ED data — BOE's summary page gives each contest's candidate totals and
+district total directly. The ED path is only for demographic reads.
+
+## Windmill (the slate JSON)
+Paste the whole `election_slate.py` into a Windmill **Python** script. Windmill auto-detects
+`main()` and builds the args form. **Run with no args** — it returns the live slate JSON for the
+12 baked-in contests.
 
 ```
-ADED,candidate,votes      # one row per election district per candidate
-66002,Layla Law-Gisiko,20
-66002,Carl Wilson,59
-...
+main(sources: dict = None, slate: list = None, title: str = "Our Slate — 2026 Primary") -> dict
 ```
+- `sources` (optional) — override a contest's page per district, e.g.
+  `{"NY-07": "https://enr.boenyc.gov/CD274520.html"}` (only if BOE changes a page id).
+- `slate` (optional) — replace the whole candidate list.
+- `title` (optional) — dashboard title.
 
-`ADED = AD*1000 + ED` (e.g. ED 2 in Assembly District 66 -> `66002`). That key is the
-seam everything downstream joins on, so the scraper's only job is to produce it cleanly.
+Deps auto-install from imports: `pandas`, `requests`, `beautifulsoup4`, `lxml`
+(the guarded `import lxml` ensures Windmill provisions `read_html`'s backend).
+Schedule it every 1–2 min to refresh as results come in.
 
-## Files
-- `boe_scrape.py` — the scraper (single file, stdlib + `pandas`, `requests`, `bs4`).
-- `slate_rollup.py` — rolls the tidy results up into a per-candidate breakdown for our slate
-  (see "Slate rollup" below); emits `slate_results.json` for a results site.
-- `slate.example.json` — config template for the rollup.
-- `samples/` — archived real ENR pages from the **April 28 2026 special election**
-  (NYC City Council District 3), used to reverse-engineer the HTML format. Three pages,
-  one per drill-down level:
-  - `sample-early-results-april.html` — contest summary (borough rows)
-  - `…-ed.html` — per-AD breakdown (rows "AD 66", "AD 67", …)
-  - `…-ed-details.html` — **ED-level results for a single AD** (rows "ED 2", "ED 3", … with candidate votes) ← the page we actually parse
-
-## Quick start (offline, no network)
-```bash
-python3 boe_scrape.py \
-  --html samples/sample-early-results-april_files/sample-early-results-april-ed-details.html \
-  --out live_results.csv
-# -> wrote live_results.csv: 125 rows, 25 EDs, 5 candidates
-```
-
-## Live usage (election night)
-```bash
-# point at a contest's results URL; re-poll every 180s
-python3 boe_scrape.py --url 'https://enr.boenyc.gov/...' --poll 180 --out live_results.csv
-```
-
-## Slate rollup (for the results site)
-`slate_rollup.py` turns the scraper output into a per-candidate breakdown for our slate.
-Scrape **one contest per CSV** (the natural unit — a contest's name only appears on its own
-district's EDs, so each CSV is self-contained), then point the rollup at a `slate.json`:
-
-```bash
-# one scrape per race -> results/<race>.csv
-python3 boe_scrape.py --url '<NY-7 contest url>'  --out results/ny7.csv
-python3 boe_scrape.py --url '<AD-70 contest url>' --out results/ad70.csv
-
-# roll up the whole slate
-python3 slate_rollup.py slate.json --out slate_results.json --csv slate_results.csv
-```
-
-`slate.json` (see `slate.example.json`):
+### Output shape
 ```json
 {
-  "title": "Our Slate — 2026 Primary",
+  "title": "...", "generated_at": "2026-06-23T21:30:00",
   "slate": [
-    {"candidate": "Valdez", "district": "NY-7",  "source": "results/ny7.csv"},
-    {"candidate": "Conrad", "district": "AD-70", "source": "results/ad70.csv"}
+    {"candidate": "Valdez", "district": "NY-07", "matched_name": "Claire Valdez",
+     "votes": 14820, "district_total": 31240, "share": 0.4744,
+     "reported_pct": 61.0, "status": "ok"}
   ]
 }
 ```
-- `candidate` = case-insensitive **substring** of the BOE-rendered name (a last name usually
-  suffices; must be unambiguous within that contest).
+- `votes` our candidate · `district_total` all votes counted in the contest · `share` = ratio (0–1)
+- `reported_pct` BOE "% of scanners reported" · `matched_name` full BOE-rendered name
+- `status`: `ok` | `waiting` (live but 0 counted) | `name-not-found` | `ambiguous` | `no-data`
 
-Output `slate_results.json` — one object per slate candidate, ready to render:
-```json
-{
-  "title": "...", "generated_at": "2026-06-23T20:15:00",
-  "slate": [
-    {"candidate": "Valdez", "district": "NY-7", "matched_name": "Claire Valdez",
-     "votes": 1042, "district_total": 3934, "share": 0.2649,
-     "eds_reporting": 23, "status": "ok"}
-  ]
-}
+`sample_slate_results.json` is an illustrative sample (real names/structure, fake numbers).
+
+## Local usage
+```bash
+python3 election_slate.py                 # human-readable slate table (hits the live site)
+python3 election_slate.py --json          # the JSON Windmill returns
+python3 election_slate.py --slate slate.json   # external config (sources can be local .html/.csv)
+
+# ED-level scrape for analysis -> tidy ADED,candidate,votes CSV
+python3 election_slate.py --scrape <url|saved.html> --out results/ny07.csv
 ```
-`district_total` = total votes counted in that contest (all candidates). `status` is `ok`,
-`no-data` (CSV not there yet), `name-not-found` (race not reporting / name format differs), or
-`ambiguous` (substring matched >1 candidate — tighten it). Re-run after each scrape to refresh.
 
-## How the parse works (confirmed from the April sample)
-The results table is the one containing a `Reported` marker. Within it:
-- **col 0** = geography (borough on the summary page; `ED N` on an ED-details page)
-- **col 1** = "% Reported"
-- **candidate names live in a header ROW** (not column headers); party labels sit in the row below
-- `NaN` "spacer" columns sit between real columns; `read_html` also emits mangled
-  duplicate tables — the parser ignores anything without a `Reported` marker.
+## slate.json
+Our 12 candidates (`slate.json`; template in `slate.example.json`). Each entry:
+`{"candidate": "<substring of BOE name>", "district": "<label>", "source": "<page or csv>"}`.
+`candidate` is a case-insensitive substring (a last name usually; must be unambiguous in that
+contest). The baked-in `DEFAULT_SLATE` inside `election_slate.py` uses the live contest pages
+directly; `slate.json` is the editable external copy.
 
-ED-details pages are **per-AD** and titled `[ AD 66 ]`. The parser auto-reads that AD from
-the title (`ad_context`) and combines it with each bare `ED N` number to form `ADED`.
+## Live ENR structure (confirmed 2026-06-23)
+- Borough index: `index.html` → `C1`=Manhattan, `C2`=Bronx, `C3`=Kings/Brooklyn, `C4`=Queens,
+  `C5`=Richmond/SI. Each lists its contests by name → a contest page `CDxxxxx0.html`.
+- **Contest summary** `CDxxxxx0.html` — `Name | Party | Votes | Percentage` table + a
+  "Percentage of Scanners Reported: N %" line. Multi-borough contests resolve to one full-district
+  page (NY-07 = `CD274520.html` from both Brooklyn and Queens). ← slate path.
+- **ED level**: contest → AD-details index `CDxxxxxADI0.html` → per-county pages
+  `CDxxxxxAD<county>.html` with rows `AD NN` then `ED N`. Same header-row layout as the archived
+  April sample, but **no `[ AD NN ]` bracket** — the ED parser tracks the AD from `AD NN` rows.
+  These pages are stubs (votes shown as `-`) until results post. ← analysis path, finalize live.
+
+## samples/
+Archived real ENR pages from the **April 28 2026** City Council District 3 special election,
+used to reverse-engineer the ED-level format. Offline test:
+```bash
+python3 election_slate.py --scrape \
+  samples/sample-early-results-april_files/sample-early-results-april-ed-details.html \
+  --out /tmp/ccd3.csv      # -> 125 rows, 25 EDs, 5 candidates
+```
 
 ## What to edit on the night
-The fragile bits are deliberately isolated in two small functions — expect to tweak them
-once we see the real 2026 general-election ENR markup:
-- **`parse_tables()` / `_geo_to_aded()`** — if the row/column roles shift, or the ED-id
-  format differs from the April sample. Use `--html` on a saved page to iterate fast.
-- **`crawl()`** — link-following from a start URL. Not yet finalized against the live site
-  (the April sample was captured as static pages). If `crawl()` misses ED pages, the
-  fallback is to enumerate per-AD URLs directly (observed pattern: `CD<contest>AD<ad><round>.html`,
-  e.g. `CD27431AD661.html`).
-
-`NON_CAND` (top of the file) lists header tokens that are *not* candidates — extend it if
-the 2026 tables introduce new non-candidate columns.
-
-## Status
-- Parse layer (`parse_tables`) — **validated** on the real April-2026 ED-details page
-  (125 rows / 25 EDs / 5 candidates, exact vote counts).
-- Live navigation (`crawl`) — **to finalize against the live site** (intentionally not
-  over-fit to the April capture).
-
-## Downstream (for context, not in this folder)
-The `live_results.csv` this produces is consumed by `live_analysis.py` in the parent
-project, which joins it to a per-ED reference table (`ed_master.parquet`: demographics +
-2024/2025 baselines) and prints the standing election-night questions. The scraper is fully
-decoupled from that — its contract is just the `ADED,candidate,votes` CSV above.
+The fragile parsing is isolated in `parse_contest_summary` (slate) and `parse_tables` /
+`_geo_to_aded` (ED level). If the live markup shifts, save a page and iterate with `--scrape`
+(or call the parser directly) until the output looks right — everything downstream is decoupled
+by the JSON / `ADED,candidate,votes` contracts.
