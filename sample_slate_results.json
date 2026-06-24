@@ -10,17 +10,91 @@
       "district_total": 31240,
       "share": 0.4744,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Claire Valdez",
+          "party": "Democratic",
+          "votes": 14820,
+          "share": 0.4744,
+          "ours": true
+        },
+        {
+          "name": "Vichal Kumar",
+          "party": "Democratic",
+          "votes": 9434,
+          "share": 0.302,
+          "ours": false
+        },
+        {
+          "name": "Antonio Reynoso",
+          "party": "Democratic",
+          "votes": 5146,
+          "share": 0.1647,
+          "ours": false
+        },
+        {
+          "name": "Julie Won",
+          "party": "Democratic",
+          "votes": 1715,
+          "share": 0.0549,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 124,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
-      "candidate": "Avila",
+      "candidate": "Avila Chevalier",
       "district": "NY-13",
       "matched_name": "Darializa Avila Chevalier",
       "votes": 9180,
       "district_total": 28450,
       "share": 0.3227,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Oscar J. Romero Jr.",
+          "party": "Democratic",
+          "votes": 11090,
+          "share": 0.3898,
+          "ours": false
+        },
+        {
+          "name": "Darializa Avila Chevalier",
+          "party": "Democratic",
+          "votes": 9180,
+          "share": 0.3227,
+          "ours": true
+        },
+        {
+          "name": "Theo Bruce Chino-Tavarez",
+          "party": "Democratic",
+          "votes": 6049,
+          "share": 0.2126,
+          "ours": false
+        },
+        {
+          "name": "Adriano Espaillat",
+          "party": "Democratic",
+          "votes": 2016,
+          "share": 0.0709,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 113,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Kawas",
@@ -30,7 +104,30 @@
       "district_total": 15290,
       "share": 0.5651,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Aber Kawas",
+          "party": "Democratic",
+          "votes": 8640,
+          "share": 0.5651,
+          "ours": true
+        },
+        {
+          "name": "Steven B. Raga",
+          "party": "Democratic",
+          "votes": 6589,
+          "share": 0.4309,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 61,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Brisport",
@@ -40,7 +137,30 @@
       "district_total": 17880,
       "share": 0.6264,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Jabari Brisport",
+          "party": "Democratic",
+          "votes": 11200,
+          "share": 0.6264,
+          "ours": true
+        },
+        {
+          "name": "Marlon Rice",
+          "party": "Democratic",
+          "votes": 6609,
+          "share": 0.3696,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 71,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Moreno",
@@ -50,7 +170,37 @@
       "district_total": 7410,
       "share": 0.4211,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Diana C. Moreno",
+          "party": "Democratic",
+          "votes": 3120,
+          "share": 0.4211,
+          "ours": true
+        },
+        {
+          "name": "Mary Jobaida",
+          "party": "Democratic",
+          "votes": 2757,
+          "share": 0.3721,
+          "ours": false
+        },
+        {
+          "name": "Kevin P. Coenen",
+          "party": "Democratic",
+          "votes": 1503,
+          "share": 0.2028,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 29,
+          "share": 0.0039,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Kattan",
@@ -60,7 +210,37 @@
       "district_total": 9260,
       "share": 0.5378,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Samantha Kattan",
+          "party": "Democratic",
+          "votes": 4980,
+          "share": 0.5378,
+          "ours": true
+        },
+        {
+          "name": "Pia Rahman",
+          "party": "Democratic",
+          "votes": 2745,
+          "share": 0.2964,
+          "ours": false
+        },
+        {
+          "name": "Melissa Orlando",
+          "party": "Democratic",
+          "votes": 1497,
+          "share": 0.1617,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 37,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Orkin",
@@ -70,17 +250,63 @@
       "district_total": 8120,
       "share": 0.436,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Jenifer Rajkumar",
+          "party": "Democratic",
+          "votes": 4548,
+          "share": 0.5601,
+          "ours": false
+        },
+        {
+          "name": "David Orkin",
+          "party": "Democratic",
+          "votes": 3540,
+          "share": 0.436,
+          "ours": true
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 32,
+          "share": 0.0039,
+          "ours": false
+        }
+      ]
     },
     {
-      "candidate": "Tate",
+      "candidate": "Celeste Tate",
       "district": "AD-54",
       "matched_name": "Christian Celeste Tate",
       "votes": 2760,
       "district_total": 5980,
       "share": 0.4615,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Erik Martin Dilan",
+          "party": "Democratic",
+          "votes": 3197,
+          "share": 0.5346,
+          "ours": false
+        },
+        {
+          "name": "Christian Celeste Tate",
+          "party": "Democratic",
+          "votes": 2760,
+          "share": 0.4615,
+          "ours": true
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 23,
+          "share": 0.0038,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Huntley",
@@ -90,7 +316,37 @@
       "district_total": 9340,
       "share": 0.5578,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Eon Huntley",
+          "party": "Democratic",
+          "votes": 5210,
+          "share": 0.5578,
+          "ours": true
+        },
+        {
+          "name": "Michael Bailey",
+          "party": "Democratic",
+          "votes": 2648,
+          "share": 0.2835,
+          "ours": false
+        },
+        {
+          "name": "Stefani L. Zinerman",
+          "party": "Democratic",
+          "votes": 1444,
+          "share": 0.1546,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 37,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Souffrant",
@@ -100,7 +356,30 @@
       "district_total": 10120,
       "share": 0.6107,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Phara Souffrant Forrest",
+          "party": "Democratic",
+          "votes": 6180,
+          "share": 0.6107,
+          "ours": true
+        },
+        {
+          "name": "Samantha N. Johnson",
+          "party": "Democratic",
+          "votes": 3899,
+          "share": 0.3853,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 40,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Sairitupac",
@@ -110,7 +389,58 @@
       "district_total": 11540,
       "share": 0.3371,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Jasmin Sanchez",
+          "party": "Democratic",
+          "votes": 4060,
+          "share": 0.3518,
+          "ours": false
+        },
+        {
+          "name": "Illapa Sairitupac",
+          "party": "Democratic",
+          "votes": 3890,
+          "share": 0.3371,
+          "ours": true
+        },
+        {
+          "name": "Mariama N. James",
+          "party": "Democratic",
+          "votes": 2214,
+          "share": 0.1919,
+          "ours": false
+        },
+        {
+          "name": "Wei-Li Tjong",
+          "party": "Democratic",
+          "votes": 738,
+          "share": 0.064,
+          "ours": false
+        },
+        {
+          "name": "Lilah Mejia",
+          "party": "Democratic",
+          "votes": 369,
+          "share": 0.032,
+          "ours": false
+        },
+        {
+          "name": "Jay Jacky Wong",
+          "party": "Democratic",
+          "votes": 221,
+          "share": 0.0192,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 46,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     },
     {
       "candidate": "Blackburn",
@@ -120,7 +450,30 @@
       "district_total": 8830,
       "share": 0.5062,
       "reported_pct": 61.0,
-      "status": "ok"
+      "status": "ok",
+      "all_candidates": [
+        {
+          "name": "Conrad Blackburn",
+          "party": "Democratic",
+          "votes": 4470,
+          "share": 0.5062,
+          "ours": true
+        },
+        {
+          "name": "Jordan J.G. Wright",
+          "party": "Democratic",
+          "votes": 4325,
+          "share": 0.4898,
+          "ours": false
+        },
+        {
+          "name": "WRITE-IN",
+          "party": "",
+          "votes": 35,
+          "share": 0.004,
+          "ours": false
+        }
+      ]
     }
   ]
 }

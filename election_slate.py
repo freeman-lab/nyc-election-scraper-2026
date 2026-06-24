@@ -68,6 +68,8 @@ DEFAULT_SLATE = [
     {"candidate": "Souffrant",  "district": "AD-57", "source": "CD276820.html"},
     {"candidate": "Sairitupac", "district": "AD-65", "source": "CD275420.html"},
     {"candidate": "Blackburn",  "district": "AD-70", "source": "CD276280.html"},
+    {"candidate": "Ocasio-Cortez", "district": "NY-14", "source": "CD276530.html"},
+    {"candidate": "Gallagher",  "district": "AD-50", "source": "CD277490.html"},
 ]
 
 
@@ -114,12 +116,22 @@ def parse_tables(html, ad_context=None):
         names = a[0]
         cand_cols = [j for j in range(len(names))
                      if isinstance(names[j], str) and names[j].strip() and j >= 2]
+        running_ad = ad_context              # track AD from 'AD NN' rows as we scan
         for r in range(1, a.shape[0]):
             geo = a[r, 0]
             if not (isinstance(geo, str) and geo.strip()):
                 continue
-            aded = _geo_to_aded(geo.strip(), ad_context)
-            if aded is None:
+            g = geo.strip()
+            m_ad = re.match(r'AD\s*0*(\d+)\s*$', g, re.I)
+            if m_ad:                         # 'AD 54' aggregate row -> set context, don't emit
+                running_ad = int(m_ad.group(1))
+                continue
+            m_ed = re.match(r'ED\s*0*(\d+)\s*$', g, re.I)
+            if m_ed and running_ad is not None:
+                aded = running_ad * 1000 + int(m_ed.group(1))
+            else:
+                aded = _geo_to_aded(g, running_ad)      # full-id / April-style fallback
+            if aded is None:                 # 'Total' / summary rows
                 continue
             for j in cand_cols:
                 v = pd.to_numeric(str(a[r, j]).replace(',', ''), errors='coerce')
@@ -265,9 +277,16 @@ def _rollup_entry(entry, cache):
     if status == 'ok' and district_total == 0:        # page is live but no votes counted yet
         status = 'waiting'
     share = round(votes / district_total, 4) if district_total else None
+    # full contest roster (for margins / leader in close races); our candidate flagged `ours`
+    all_candidates = [
+        {'name': r2['candidate'], 'party': r2['party'], 'votes': int(r2['votes']),
+         'share': round(r2['votes'] / district_total, 4) if district_total else None,
+         'ours': r2['candidate'] == matched_name}
+        for _, r2 in df.sort_values('votes', ascending=False).iterrows()
+    ]
     return {**label, 'matched_name': matched_name, 'votes': votes,
             'district_total': district_total, 'share': share,
-            'reported_pct': rep, 'status': status}
+            'reported_pct': rep, 'status': status, 'all_candidates': all_candidates}
 
 
 def build_payload(slate, title=TITLE):

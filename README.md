@@ -39,12 +39,17 @@ Schedule it every 1–2 min to refresh as results come in.
   "slate": [
     {"candidate": "Valdez", "district": "NY-07", "matched_name": "Claire Valdez",
      "votes": 14820, "district_total": 31240, "share": 0.4744,
-     "reported_pct": 61.0, "status": "ok"}
+     "reported_pct": 61.0, "status": "ok",
+     "all_candidates": [
+       {"name": "Claire Valdez", "party": "Democratic", "votes": 14820, "share": 0.4744, "ours": true},
+       {"name": "Vichal Kumar",  "party": "Democratic", "votes": 9434,  "share": 0.302,  "ours": false}
+     ]}
   ]
 }
 ```
 - `votes` our candidate · `district_total` all votes counted in the contest · `share` = ratio (0–1)
 - `reported_pct` BOE "% of scanners reported" · `matched_name` full BOE-rendered name
+- `all_candidates` full contest field, sorted by votes, `ours:true` on our candidate (for margins / leader)
 - `status`: `ok` | `waiting` (live but 0 counted) | `name-not-found` | `ambiguous` | `no-data`
 
 `sample_slate_results.json` is an illustrative sample (real names/structure, fake numbers).

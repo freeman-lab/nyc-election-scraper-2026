@@ -12,6 +12,8 @@
     {"candidate": "Souffrant",  "district": "AD-57", "source": "results/ad57.csv"},
     {"candidate": "Avila Chevalier", "district": "NY-13", "source": "results/ny13.csv"},
     {"candidate": "Sairitupac", "district": "AD-65", "source": "results/ad65.csv"},
-    {"candidate": "Blackburn",  "district": "AD-70", "source": "results/ad70.csv"}
+    {"candidate": "Blackburn",  "district": "AD-70", "source": "results/ad70.csv"},
+    {"candidate": "Ocasio-Cortez", "district": "NY-14", "source": "results/ny14.csv"},
+    {"candidate": "Gallagher",  "district": "AD-50", "source": "results/ad50.csv"}
   ]
 }
