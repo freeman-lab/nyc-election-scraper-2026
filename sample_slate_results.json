@@ -1,0 +1,126 @@
+{
+  "title": "Our Slate — 2026 Primary  [SAMPLE — illustrative numbers, NOT real results]",
+  "generated_at": "2026-06-23T21:30:00",
+  "slate": [
+    {
+      "candidate": "Valdez",
+      "district": "NY-07",
+      "matched_name": "Claire Valdez",
+      "votes": 14820,
+      "district_total": 31240,
+      "share": 0.4744,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Avila",
+      "district": "NY-13",
+      "matched_name": "Darializa Avila Chevalier",
+      "votes": 9180,
+      "district_total": 28450,
+      "share": 0.3227,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Kawas",
+      "district": "SD-12",
+      "matched_name": "Aber Kawas",
+      "votes": 8640,
+      "district_total": 15290,
+      "share": 0.5651,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Brisport",
+      "district": "SD-25",
+      "matched_name": "Jabari Brisport",
+      "votes": 11200,
+      "district_total": 17880,
+      "share": 0.6264,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Moreno",
+      "district": "AD-36",
+      "matched_name": "Diana C. Moreno",
+      "votes": 3120,
+      "district_total": 7410,
+      "share": 0.4211,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Kattan",
+      "district": "AD-37",
+      "matched_name": "Samantha Kattan",
+      "votes": 4980,
+      "district_total": 9260,
+      "share": 0.5378,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Orkin",
+      "district": "AD-38",
+      "matched_name": "David Orkin",
+      "votes": 3540,
+      "district_total": 8120,
+      "share": 0.436,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Tate",
+      "district": "AD-54",
+      "matched_name": "Christian Celeste Tate",
+      "votes": 2760,
+      "district_total": 5980,
+      "share": 0.4615,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Huntley",
+      "district": "AD-56",
+      "matched_name": "Eon Huntley",
+      "votes": 5210,
+      "district_total": 9340,
+      "share": 0.5578,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Souffrant",
+      "district": "AD-57",
+      "matched_name": "Phara Souffrant Forrest",
+      "votes": 6180,
+      "district_total": 10120,
+      "share": 0.6107,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Sairitupac",
+      "district": "AD-65",
+      "matched_name": "Illapa Sairitupac",
+      "votes": 3890,
+      "district_total": 11540,
+      "share": 0.3371,
+      "reported_pct": 61.0,
+      "status": "ok"
+    },
+    {
+      "candidate": "Blackburn",
+      "district": "AD-70",
+      "matched_name": "Conrad Blackburn",
+      "votes": 4470,
+      "district_total": 8830,
+      "share": 0.5062,
+      "reported_pct": 61.0,
+      "status": "ok"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "Our Slate — 2026 Primary",
+  "slate": [
+    {"candidate": "<lastname>", "district": "NY-7",  "source": "results/ny7.csv"},
+    {"candidate": "<lastname>", "district": "NY-13", "source": "results/ny13.csv"},
+    {"candidate": "<lastname>", "district": "AD-70", "source": "results/ad70.csv"}
+  ]
+}

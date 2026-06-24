@@ -15,6 +15,9 @@ seam everything downstream joins on, so the scraper's only job is to produce it 
 
 ## Files
 - `boe_scrape.py` — the scraper (single file, stdlib + `pandas`, `requests`, `bs4`).
+- `slate_rollup.py` — rolls the tidy results up into a per-candidate breakdown for our slate
+  (see "Slate rollup" below); emits `slate_results.json` for a results site.
+- `slate.example.json` — config template for the rollup.
 - `samples/` — archived real ENR pages from the **April 28 2026 special election**
   (NYC City Council District 3), used to reverse-engineer the HTML format. Three pages,
   one per drill-down level:
@@ -35,6 +38,48 @@ python3 boe_scrape.py \
 # point at a contest's results URL; re-poll every 180s
 python3 boe_scrape.py --url 'https://enr.boenyc.gov/...' --poll 180 --out live_results.csv
 ```
+
+## Slate rollup (for the results site)
+`slate_rollup.py` turns the scraper output into a per-candidate breakdown for our slate.
+Scrape **one contest per CSV** (the natural unit — a contest's name only appears on its own
+district's EDs, so each CSV is self-contained), then point the rollup at a `slate.json`:
+
+```bash
+# one scrape per race -> results/<race>.csv
+python3 boe_scrape.py --url '<NY-7 contest url>'  --out results/ny7.csv
+python3 boe_scrape.py --url '<AD-70 contest url>' --out results/ad70.csv
+
+# roll up the whole slate
+python3 slate_rollup.py slate.json --out slate_results.json --csv slate_results.csv
+```
+
+`slate.json` (see `slate.example.json`):
+```json
+{
+  "title": "Our Slate — 2026 Primary",
+  "slate": [
+    {"candidate": "Valdez", "district": "NY-7",  "source": "results/ny7.csv"},
+    {"candidate": "Conrad", "district": "AD-70", "source": "results/ad70.csv"}
+  ]
+}
+```
+- `candidate` = case-insensitive **substring** of the BOE-rendered name (a last name usually
+  suffices; must be unambiguous within that contest).
+
+Output `slate_results.json` — one object per slate candidate, ready to render:
+```json
+{
+  "title": "...", "generated_at": "2026-06-23T20:15:00",
+  "slate": [
+    {"candidate": "Valdez", "district": "NY-7", "matched_name": "Claire Valdez",
+     "votes": 1042, "district_total": 3934, "share": 0.2649,
+     "eds_reporting": 23, "status": "ok"}
+  ]
+}
+```
+`district_total` = total votes counted in that contest (all candidates). `status` is `ok`,
+`no-data` (CSV not there yet), `name-not-found` (race not reporting / name format differs), or
+`ambiguous` (substring matched >1 candidate — tighten it). Re-run after each scrape to refresh.
 
 ## How the parse works (confirmed from the April sample)
 The results table is the one containing a `Reported` marker. Within it:

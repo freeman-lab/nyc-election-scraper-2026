@@ -1,0 +1,17 @@
+{
+  "title": "Our Slate — 2026 Primary",
+  "slate": [
+    {"candidate": "Valdez",    "district": "NY-07", "source": "results/ny07.csv"},
+    {"candidate": "Kawas",     "district": "SD-12", "source": "results/sd12.csv"},
+    {"candidate": "Kattan",    "district": "AD-37", "source": "results/ad37.csv"},
+    {"candidate": "Orkin",     "district": "AD-38", "source": "results/ad38.csv"},
+    {"candidate": "Celeste Tate", "district": "AD-54", "source": "results/ad54.csv"},
+    {"candidate": "Huntley",   "district": "AD-56", "source": "results/ad56.csv"},
+    {"candidate": "Brisport",  "district": "SD-25", "source": "results/sd25.csv"},
+    {"candidate": "Moreno",     "district": "AD-36", "source": "results/ad36.csv"},
+    {"candidate": "Souffrant",  "district": "AD-57", "source": "results/ad57.csv"},
+    {"candidate": "Avila Chevalier", "district": "NY-13", "source": "results/ny13.csv"},
+    {"candidate": "Sairitupac", "district": "AD-65", "source": "results/ad65.csv"},
+    {"candidate": "Blackburn",  "district": "AD-70", "source": "results/ad70.csv"}
+  ]
+}
